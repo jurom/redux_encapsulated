@@ -1,3 +1,4 @@
+import React from 'react'
 import assert from 'assert'
 import lodash from 'lodash'
 
@@ -111,3 +112,16 @@ function cloneObject(obj) {
   if (lodash.isArray(obj)) return [...obj]
   return {...obj}
 }
+
+
+export const bindClosures = (closureMap) =>
+  (BaseComponent) => class BindClosures extends React.Component {
+    componentWillMount = () => {
+      this.closures = lodash.mapValues(
+        closureMap,
+        (fn) => (...args) => fn(this.props, ...args)
+      )
+    }
+
+    render = () => <BaseComponent {...{...this.props, ...this.closures}} />
+  }
