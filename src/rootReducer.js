@@ -1,12 +1,15 @@
-import {forwardReducerTo} from './utils'
+import {compose, forwardReducerTo} from './utils'
 import {routerReducer, LOCATION_CHANGE} from 'react-router-redux'
+import {setInitialState as setSingleCounterInitialState} from './counter_single/state'
 
 const getInitialState = () => {
   const state = {
     routing: {},
   }
 
-  return state
+  return compose(
+    setSingleCounterInitialState,
+  )(state)
 }
 
 const rootReducer = (state = getInitialState(), action) => {
