@@ -1,5 +1,5 @@
 import {COUNTER_MODES} from '../constants'
-import {PATH_SINGLE_COUNTER, counterModeSelector} from './state'
+import {PATH_SINGLE_COUNTER, counterModeSelector} from './selectors'
 
 const changeCounterBy = (count) => ({
   type: 'Change counter',

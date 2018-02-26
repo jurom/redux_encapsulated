@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {counterCountSelector} from './state'
+import {counterCountSelector} from './selectors'
 import {changeCounter, switchMode} from './actions'
 import {bindClosures, compose} from '../utils'
 

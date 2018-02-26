@@ -1,6 +1,6 @@
 import React from 'react'
 import {counterActions1, counterActions2} from './actions'
-import {counterSelectors1, counterSelectors2} from './state'
+import {counterSelectors1, counterSelectors2} from './selectors'
 import counterCreator from './counterCreator/component'
 
 const FirstCounter = counterCreator({actions: counterActions1, selectors: counterSelectors1})

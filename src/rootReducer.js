@@ -1,7 +1,7 @@
 import {compose, forwardReducerTo} from './utils'
 import {routerReducer, LOCATION_CHANGE} from 'react-router-redux'
-import {setInitialState as setSingleCounterInitialState} from './counter_single/state'
-import {setInitialState as setTwoCountersInitialState} from './two_counters/state'
+import {setInitialState as setSingleCounterInitialState} from './counter_single/selectors'
+import {setInitialState as setTwoCountersInitialState} from './two_counters/selectors'
 
 const getInitialState = () => {
   const state = {

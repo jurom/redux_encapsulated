@@ -1,5 +1,5 @@
 import {compose} from '../utils'
-import createCounterSelectors from './counterCreator/state'
+import createCounterSelectors from './counterCreator/selectors'
 
 export const PATH_TWO_COUNTERS_SCREEN = ['two_counters']
 /// Some other things related to this screen, unrelated to the counters could be stored here...

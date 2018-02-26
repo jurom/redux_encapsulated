@@ -1,5 +1,5 @@
 import createCounterActions from './counterCreator/actions'
-import {counterSelectors1, counterSelectors2} from './state'
+import {counterSelectors1, counterSelectors2} from './selectors'
 
 export const counterActions1 = createCounterActions({selectors: counterSelectors1})
 export const counterActions2 = createCounterActions({selectors: counterSelectors2})
