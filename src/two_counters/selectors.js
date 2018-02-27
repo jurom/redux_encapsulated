@@ -1,10 +1,11 @@
-import {compose} from '../utils'
+import {compose, setIn} from '../utils'
 import createCounterSelectors from './counterCreator/selectors'
 
 export const PATH_TWO_COUNTERS_SCREEN = ['two_counters']
 /// Some other things related to this screen, unrelated to the counters could be stored here...
 
-const _setInitialState = (state) => ({})
+const _setInitialState = (state) =>
+  setIn(state, PATH_TWO_COUNTERS_SCREEN, {}, true)
 
 const PATH_TWO_COUNTERS_COUNTERS = [...PATH_TWO_COUNTERS_SCREEN, 'counters']
 

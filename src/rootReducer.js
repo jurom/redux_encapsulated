@@ -2,6 +2,7 @@ import {compose, forwardReducerTo} from './utils'
 import {routerReducer, LOCATION_CHANGE} from 'react-router-redux'
 import {setInitialState as setSingleCounterInitialState} from './counter_single/selectors'
 import {setInitialState as setTwoCountersInitialState} from './two_counters/selectors'
+import {setInitialState as setMultipleCountersInitialState} from './multiple_counters/selectors'
 
 const getInitialState = () => {
   const state = {
@@ -11,6 +12,7 @@ const getInitialState = () => {
   return compose(
     setSingleCounterInitialState,
     setTwoCountersInitialState,
+    setMultipleCountersInitialState,
   )(state)
 }
 

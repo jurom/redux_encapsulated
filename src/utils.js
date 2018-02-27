@@ -125,3 +125,6 @@ export const bindClosures = (closureMap) =>
 
     render = () => <BaseComponent {...{...this.props, ...this.closures}} />
   }
+
+export const generateId = ():string =>
+  `${Date.now()}-${Math.floor(Math.random() * 1000)}`
