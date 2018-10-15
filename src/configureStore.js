@@ -4,6 +4,7 @@ import {routerMiddleware} from 'react-router-redux'
 import {createBrowserHistory} from 'history'
 import {createLogger} from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
+import DevTools from './DevTools'
 
 export const browserHistory = createBrowserHistory()
 
@@ -18,6 +19,7 @@ export const configureStore = () => {
       browserMiddleware,
       loggerMiddleware,
     ),
+    DevTools.instrument()
   )
 
   const store = createStore(rootReducer, initialState, enhancer)
