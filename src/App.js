@@ -6,6 +6,7 @@ import TwoDependentCounters from './counter_single/TwoDependentCounters'
 import TwoCounters from './two_counters/TwoCounters'
 import MultipleCounters from './multiple_counters/MultipleCounters'
 import CounterState from './counter_state'
+import CustomCounter from './custom_reducer_counters/Counter'
 
 class App extends React.Component {
   render() {
@@ -17,6 +18,7 @@ class App extends React.Component {
           <NavLink to="/two-dependent-counters">Two counters - dependent</NavLink>
           <NavLink to="/two-counters">Two counters</NavLink>
           <NavLink to="/multiple-counters">Multiple counters</NavLink>
+          <NavLink to="/custom-counter">Custom counter</NavLink>
         </div>
         <div className="App__content">
           <Route path="/" exact render={() => <Redirect to={{pathname: '/single-counter'}} />} />
@@ -25,6 +27,7 @@ class App extends React.Component {
           <Route path="/two-dependent-counters" component={TwoDependentCounters} />
           <Route path="/two-counters" component={TwoCounters} />
           <Route path="/multiple-counters" component={MultipleCounters} />
+          <Route path="/custom-counter" component={CustomCounter} />
         </div>
       </div>
     )
