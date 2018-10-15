@@ -1,5 +1,5 @@
 import {Provider} from 'react-redux'
-import {Router} from 'react-router-dom'
+import {ConnectedRouter} from 'connected-react-router'
 import React from 'react'
 import App from './App'
 import DevTools from './DevTools'
@@ -11,9 +11,9 @@ import DevTools from './DevTools'
 export default ({store, history}) => (
   <Provider store={store}>
     <div>
-      <Router history={history}>
+      <ConnectedRouter history={history}>
         <App />
-      </Router>
+      </ConnectedRouter>
       <DevTools />
     </div>
   </Provider>
