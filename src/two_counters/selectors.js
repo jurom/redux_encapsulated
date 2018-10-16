@@ -1,4 +1,5 @@
-import {compose, setIn} from '../utils'
+import {compose} from 'redux'
+import {setIn} from '../utils'
 import createCounterSelectors from './counterCreator/selectors'
 
 export const PATH_TWO_COUNTERS_SCREEN = ['two_counters']

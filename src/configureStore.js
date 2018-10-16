@@ -21,7 +21,7 @@ export const configureStore = () => {
         thunkMiddleware,
         loggerMiddleware,
       ),
-      DevTools.instrument()
+      process.env.REACT_APP_DEVTOOLS ? DevTools.instrument() : (_) => _
     )
   )
 

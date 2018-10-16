@@ -14,7 +14,7 @@ export default ({store, history}) => (
       <ConnectedRouter history={history}>
         <App />
       </ConnectedRouter>
-      <DevTools />
+      {process.env.REACT_APP_DEVTOOLS ? <DevTools /> : null}
     </div>
   </Provider>
 )

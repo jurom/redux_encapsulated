@@ -1,4 +1,3 @@
-import React from 'react'
 import assert from 'assert'
 import lodash from 'lodash'
 
@@ -19,7 +18,6 @@ const _hasOwnProp = (obj, key) => {
  * compose(f,g,h)(x) is equivalent to f(g(h(x)))
  */
 
-export const compose = (f, ...fs) => fs.length > 0 ? (x) => f(compose(...fs)(x)) : f
 
 export const forwardReducerTo = (reducer, path) => (
   (state, payload) => {
@@ -113,18 +111,11 @@ function cloneObject(obj) {
   return {...obj}
 }
 
-
-export const bindClosures = (closureMap) =>
-  (BaseComponent) => class BindClosures extends React.Component {
-    componentWillMount = () => {
-      this.closures = lodash.mapValues(
-        closureMap,
-        (fn) => (...args) => fn(this.props, ...args)
-      )
-    }
-
-    render = () => <BaseComponent {...{...this.props, ...this.closures}} />
-  }
-
 export const generateId = ():string =>
   `${Date.now()}-${Math.floor(Math.random() * 1000)}`
+
+
+export const scopeReducers = (scope) => (reducerDefinition) => ({
+  ...reducerDefinition,
+  type: `${scope}/${reducerDefinition.type}`,
+})

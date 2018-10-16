@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {bindClosures, compose} from '../../utils'
+import {compose} from 'redux'
+import {withHandlers} from 'recompose'
 
 export default ({actions, selectors}) => {
 
@@ -28,9 +29,9 @@ export default ({actions, selectors}) => {
         switchMode,
       }
     ),
-    bindClosures({
-      increaseCounter: ({changeCounter}) => changeCounter({positive: true}),
-      decreaseCounter: ({changeCounter}) => changeCounter({positive: false}),
+    withHandlers({
+      increaseCounter: ({changeCounter}) => () => changeCounter({positive: true}),
+      decreaseCounter: ({changeCounter}) => () => changeCounter({positive: false}),
     })
   )(Counter)
 }

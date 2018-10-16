@@ -1,36 +1,24 @@
-import {compose, forwardReducerTo, setIn} from './utils'
+import _ from 'lodash'
+import {compose} from 'redux'
+import {forwardReducerTo} from './utils'
 import {setInitialState as setSingleCounterInitialState} from './counter_single/selectors'
 import {setInitialState as setTwoCountersInitialState} from './two_counters/selectors'
 import {setInitialState as setMultipleCountersInitialState} from './multiple_counters/selectors'
-import {setInitialState as setCustomCounterInitialState, reducers as customCounterReducers} from './custom_reducer_counters/reducers'
+import * as customCounter from './custom_reducer_counters/reducers'
 
 const getInitialState = () => {
   return compose(
     setSingleCounterInitialState,
     setTwoCountersInitialState,
     setMultipleCountersInitialState,
-    setCustomCounterInitialState,
+    customCounter.setInitialState,
   )({})
 }
 
-const matchReducer = (type) => ({
-  ...customCounterReducers,
-})[type]
-
-const rootReducer = (state = getInitialState(), action) => {
-
-  // Match against another custom reducer first
-  if (action.type) {
-    const reducer = matchReducer(action.type)
-    console.log(reducer)
-    if (reducer != null) return reducer(state)
-  }
-
+// Approach with dispatching reducers
+const rootReducerReduced = (state = getInitialState(), action) => {
   if (!action.reducer) {
     return state
-  }
-  if (!action.path) {
-    throw new Error('You forgot action.path in action ' + action.type)
   }
   let reducer = forwardReducerTo(action.reducer, action.path)
 
@@ -38,4 +26,27 @@ const rootReducer = (state = getInitialState(), action) => {
 }
 
 
-export default rootReducer
+// Approach with dispatching types and paths
+const uniqueReducers = [
+  ...customCounter.reducers,
+]
+
+const indexedReducers = _.fromPairs(
+  uniqueReducers.map((reducerDefinition) => [reducerDefinition.type, reducerDefinition])
+)
+
+const rootReducerReducedSerializable = (state = getInitialState(), action) => {
+  if (action.type) {
+    const reducerDefinition = indexedReducers[action.type]
+    if (reducerDefinition) {
+      const reducer = reducerDefinition.path
+        ? forwardReducerTo(reducerDefinition.reducer, reducerDefinition.path)
+        : reducerDefinition.reducer
+      return reducer(state, action)
+    }
+  }
+  return state
+}
+
+export default (state = getInitialState(), action) =>
+  rootReducerReducedSerializable(rootReducerReduced(state, action), action)

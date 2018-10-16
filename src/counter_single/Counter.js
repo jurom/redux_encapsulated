@@ -1,8 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {compose} from 'redux'
 import {counterCountSelector} from './selectors'
 import {changeCounter, switchMode} from './actions'
-import {bindClosures, compose} from '../utils'
+import {withHandlers} from 'recompose'
 
 const Counter = ({count, increaseCounter, decreaseCounter, switchMode}) => (
   <div>
@@ -25,8 +26,8 @@ export default compose(
       switchMode,
     }
   ),
-  bindClosures({
-    increaseCounter: ({changeCounter}) => changeCounter({positive: true}),
-    decreaseCounter: ({changeCounter}) => changeCounter({positive: false}),
+  withHandlers({
+    increaseCounter: ({changeCounter}) => () => changeCounter({positive: true}),
+    decreaseCounter: ({changeCounter}) => () => changeCounter({positive: false}),
   })
 )(Counter)
