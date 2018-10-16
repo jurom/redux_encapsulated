@@ -7,6 +7,7 @@ import TwoCounters from './two_counters/TwoCounters'
 import MultipleCounters from './multiple_counters/MultipleCounters'
 import CounterState from './counter_state'
 import CustomCounter from './custom_reducer_counters/Counter'
+import TraditionalCounter from './traditionalReduxCounters/Counter'
 
 class App extends React.Component {
   render() {
@@ -14,6 +15,7 @@ class App extends React.Component {
       <div className="App">
         <div className="App__links">
           <NavLink to="/stateful">Stateful counter</NavLink>
+          <NavLink to="/traditional">Traditional redux counter</NavLink>
           <NavLink to="/single-counter">Single counter</NavLink>
           <NavLink to="/two-dependent-counters">Two counters - dependent</NavLink>
           <NavLink to="/two-counters">Two counters</NavLink>
@@ -23,6 +25,7 @@ class App extends React.Component {
         <div className="App__content">
           <Route path="/" exact render={() => <Redirect to={{pathname: '/single-counter'}} />} />
           <Route path="/stateful" component={CounterState} />
+          <Route path="/traditional" component={TraditionalCounter} />
           <Route path="/single-counter" component={SingleCounter} />
           <Route path="/two-dependent-counters" component={TwoDependentCounters} />
           <Route path="/two-counters" component={TwoCounters} />

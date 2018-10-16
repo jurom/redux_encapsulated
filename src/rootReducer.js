@@ -1,20 +1,39 @@
 import _ from 'lodash'
-import {compose} from 'redux'
+import {compose, combineReducers} from 'redux'
 import {forwardReducerTo} from './utils'
-import {setInitialState as setSingleCounterInitialState} from './counter_single/selectors'
-import {setInitialState as setTwoCountersInitialState} from './two_counters/selectors'
-import {setInitialState as setMultipleCountersInitialState} from './multiple_counters/selectors'
+import * as singleCounter from './counter_single/selectors'
+import * as twoCounters from './two_counters/selectors'
+import * as multipleCounters from './multiple_counters/selectors'
+import traditionalReduxReducer from './traditionalReduxCounters/reducers'
 import * as customCounter from './custom_reducer_counters/reducers'
 
+// Traditional redux reducer
+const combinedReducers = combineReducers({
+  traditionalRedux: traditionalReduxReducer,
+})
+
+const traditionalReduxRootReducer = (state, action) => {
+  return {
+    ...state,
+    ...combinedReducers(state, action),
+  }
+}
+
+//
+//
+// Initial state creation shared for the new approaches
 const getInitialState = () => {
   return compose(
-    setSingleCounterInitialState,
-    setTwoCountersInitialState,
-    setMultipleCountersInitialState,
+    singleCounter.setInitialState,
+    twoCounters.setInitialState,
+    multipleCounters.setInitialState,
     customCounter.setInitialState,
   )({})
 }
 
+//
+//
+//
 // Approach with dispatching reducers
 const rootReducerReduced = (state = getInitialState(), action) => {
   if (!action.reducer) {
@@ -25,7 +44,9 @@ const rootReducerReduced = (state = getInitialState(), action) => {
   return reducer(state, action.payload)
 }
 
-
+//
+//
+//
 // Approach with dispatching types and paths
 const uniqueReducers = [
   ...customCounter.reducers,
@@ -48,5 +69,14 @@ const rootReducerReducedSerializable = (state = getInitialState(), action) => {
   return state
 }
 
+// export const compose = (f, ...fs) => fs.length > 0 ? (x) => f(compose(...fs)(x)) : f
+
+const composeReducers = (reducer, ...reducers) =>
+  reducers.length > 0 ? (state, action) => reducer(composeReducers(...reducers)(state, action), action) : reducer
+
 export default (state = getInitialState(), action) =>
-  rootReducerReducedSerializable(rootReducerReduced(state, action), action)
+  composeReducers(
+    traditionalReduxRootReducer,
+    rootReducerReducedSerializable,
+    rootReducerReduced
+  )(state, action)
