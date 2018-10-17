@@ -1,9 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {compose} from 'redux'
+import {withHandlers} from 'recompose'
 import {counterCountSelector} from './selectors'
 import {changeCounter, switchMode} from './actions'
-import {withHandlers} from 'recompose'
 
 const Counter = ({count, increaseCounter, decreaseCounter, switchMode}) => (
   <div>

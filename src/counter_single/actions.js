@@ -3,16 +3,16 @@ import {PATH_SINGLE_COUNTER, counterModeSelector} from './selectors'
 
 const changeCounterBy = (count) => ({
   type: 'Change counter',
-  payload: count,
+  payload: {count},
   path: [...PATH_SINGLE_COUNTER, 'count'],
-  reducer: (state) => state + count,
+  reducer: (state, {count}) => state + count,
 })
 
 const _switchMode = (mode) => ({
   type: 'Switching mode',
   path: [...PATH_SINGLE_COUNTER, 'mode'],
-  payload: mode,
-  reducer: (state) => mode,
+  payload: {mode},
+  reducer: (state, {mode}) => mode,
 })
 
 export const switchMode = () =>

@@ -8,11 +8,11 @@ const initialState = {
 
 export const PATH_SINGLE_COUNTER = ['single_counter']
 
-export const counterModeSelector = (state) =>
-  getIn(state, [...PATH_SINGLE_COUNTER, 'mode'])
-
 export const counterCountSelector = (state) =>
   getIn(state, [...PATH_SINGLE_COUNTER, 'count'])
 
 export const setInitialState = (state) =>
   setIn(state, PATH_SINGLE_COUNTER, initialState, true)
+
+export const counterModeSelector = (state) =>
+  getIn(state, [...PATH_SINGLE_COUNTER, 'mode'])

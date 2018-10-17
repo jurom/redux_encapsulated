@@ -36,7 +36,7 @@ const getInitialState = () => {
 //
 // Approach with dispatching reducers
 const rootReducerReduced = (state = getInitialState(), action) => {
-  if (!action.reducer) {
+  if (!action.reducer || !action.path) {
     return state
   }
   let reducer = forwardReducerTo(action.reducer, action.path)
@@ -69,7 +69,6 @@ const rootReducerReducedSerializable = (state = getInitialState(), action) => {
   return state
 }
 
-// export const compose = (f, ...fs) => fs.length > 0 ? (x) => f(compose(...fs)(x)) : f
 
 const composeReducers = (reducer, ...reducers) =>
   reducers.length > 0 ? (state, action) => reducer(composeReducers(...reducers)(state, action), action) : reducer

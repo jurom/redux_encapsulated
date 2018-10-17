@@ -9,15 +9,16 @@ export default ({selectors}) => {
 
   const changeCounterBy = (count) => ({
     type: 'Change counter',
+    payload: {count},
     path: [...path, 'count'],
-    reducer: (state) => state + count,
+    reducer: (state, {count}) => state + count,
   })
 
   const _switchMode = (mode) => ({
     type: 'Switching mode',
     path: [...path, 'mode'],
-    payload: mode,
-    reducer: (state) => mode,
+    payload: {mode},
+    reducer: (state, {mode}) => mode,
   })
 
   const switchMode = () =>
