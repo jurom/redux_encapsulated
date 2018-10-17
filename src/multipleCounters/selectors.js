@@ -1,6 +1,6 @@
 import lodash from 'lodash'
 import {getIn, setIn} from '../utils'
-import createCounterSelectors from '../two_counters/counterCreator/selectors'
+import createCounterSelectors from '../twoCounters/counterCreator/selectors'
 
 export const PATH_MULTI_COUNTERS = ['multi_counters']
 

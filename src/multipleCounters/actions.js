@@ -2,7 +2,7 @@ import lodash from 'lodash'
 import {generateId} from '../utils'
 import {PATH_MULTI_COUNTERS, getCounterSelectors} from './selectors'
 
-import createCounterActions from '../two_counters/counterCreator/actions'
+import createCounterActions from '../twoCounters/counterCreator/actions'
 
 const _addCounterToList = (counterId) => ({
   type: 'Adding counter to counter list',

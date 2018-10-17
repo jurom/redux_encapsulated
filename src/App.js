@@ -1,12 +1,12 @@
 import './App.css'
 import React from 'react'
 import {NavLink, Route, Redirect} from 'react-router-dom'
-import SingleCounter from './counter_single/Counter'
-import TwoDependentCounters from './counter_single/TwoDependentCounters'
-import TwoCounters from './two_counters/TwoCounters'
-import MultipleCounters from './multiple_counters/MultipleCounters'
-import CounterState from './counter_state'
-import CustomCounter from './custom_reducer_counters/Counter'
+import SingleCounter from './counterSingle/Counter'
+import TwoDependentCounters from './counterSingle/TwoDependentCounters'
+import TwoCounters from './twoCounters/TwoCounters'
+import MultipleCounters from './multipleCounters/MultipleCounters'
+import CounterState from './counterState'
+import CustomCounter from './customReducerCounters/Counter'
 import TraditionalCounter from './traditionalReduxCounters/Counter'
 
 class App extends React.Component {

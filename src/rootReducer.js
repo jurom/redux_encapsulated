@@ -1,11 +1,11 @@
 import _ from 'lodash'
 import {compose, combineReducers} from 'redux'
 import {forwardReducerTo} from './utils'
-import * as singleCounter from './counter_single/selectors'
-import * as twoCounters from './two_counters/selectors'
-import * as multipleCounters from './multiple_counters/selectors'
+import * as singleCounter from './counterSingle/selectors'
+import * as twoCounters from './twoCounters/selectors'
+import * as multipleCounters from './multipleCounters/selectors'
 import traditionalReduxReducer from './traditionalReduxCounters/reducers'
-import * as customCounter from './custom_reducer_counters/reducers'
+import * as customCounter from './customReducerCounters/reducers'
 
 // Traditional redux reducer
 const combinedReducers = combineReducers({
