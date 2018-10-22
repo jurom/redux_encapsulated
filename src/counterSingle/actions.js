@@ -15,6 +15,12 @@ const _switchMode = (mode) => ({
   reducer: (state, {mode}) => mode,
 })
 
+export const doubleChange = () =>
+  (dispatch, getState) => {
+    dispatch([changeCounterBy(1), changeCounterBy(1)])
+  }
+
+
 export const switchMode = () =>
   (dispatch, getState) => {
     const currentMode = counterModeSelector(getState())

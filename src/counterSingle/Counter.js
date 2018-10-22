@@ -3,12 +3,13 @@ import {connect} from 'react-redux'
 import {compose} from 'redux'
 import {withHandlers} from 'recompose'
 import {counterCountSelector} from './selectors'
-import {changeCounter, switchMode} from './actions'
+import {changeCounter, switchMode, doubleChange} from './actions'
 
-const Counter = ({count, increaseCounter, decreaseCounter, switchMode}) => (
+const Counter = ({count, doubleIncrease, increaseCounter, decreaseCounter, switchMode}) => (
   <div>
     <div>The current count is: {count}</div>
     <div>
+      <button type="button" onClick={doubleIncrease}>++</button>
       <button type="button" onClick={increaseCounter}>+</button>
       <button type="button" onClick={decreaseCounter}>-</button>
       <button type="button" onClick={switchMode}>Switch mode</button>
@@ -23,6 +24,7 @@ export default compose(
     }),
     {
       changeCounter,
+      doubleIncrease: doubleChange,
       switchMode,
     }
   ),

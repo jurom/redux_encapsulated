@@ -9,18 +9,22 @@ import CounterState from './counterState'
 import CustomCounter from './customReducerCounters/Counter'
 import TraditionalCounter from './traditionalReduxCounters/Counter'
 
+const Link = ({children, ...props}) => (
+  <NavLink {...props} className="App__links__link">{children}</NavLink>
+)
+
 class App extends React.Component {
   render() {
     return (
       <div className="App">
         <div className="App__links">
-          <NavLink to="/stateful">Stateful counter</NavLink>
-          <NavLink to="/traditional">Traditional redux counter</NavLink>
-          <NavLink to="/single-counter">Single counter</NavLink>
-          <NavLink to="/two-dependent-counters">Two counters - dependent</NavLink>
-          <NavLink to="/two-counters">Two counters</NavLink>
-          <NavLink to="/multiple-counters">Multiple counters</NavLink>
-          <NavLink to="/custom-counter">Custom counter</NavLink>
+          <Link to="/stateful">Stateful counter</Link>
+          <Link to="/traditional">Traditional redux counter</Link>
+          <Link to="/single-counter">Single counter</Link>
+          <Link to="/two-dependent-counters">Two counters - dependent</Link>
+          <Link to="/two-counters">Two counters</Link>
+          <Link to="/multiple-counters">Multiple counters</Link>
+          <Link to="/custom-counter">Custom counter</Link>
         </div>
         <div className="App__content">
           <Route path="/" exact render={() => <Redirect to={{pathname: '/single-counter'}} />} />

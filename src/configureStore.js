@@ -5,6 +5,8 @@ import {createBrowserHistory} from 'history'
 import {createLogger} from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
 import DevTools from './DevTools'
+import batchedDispatch from './middlewares/batchedDispatch'
+import {batchedDispatchSerialized} from './middlewares/batchedDispatchSerialized'
 
 export const browserHistory = createBrowserHistory()
 
@@ -17,6 +19,8 @@ export const configureStore = () => {
     initialState,
     compose(
       applyMiddleware(
+        batchedDispatch,
+        batchedDispatchSerialized,
         routerMiddleware(browserHistory),
         thunkMiddleware,
         loggerMiddleware,

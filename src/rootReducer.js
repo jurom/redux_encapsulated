@@ -6,6 +6,7 @@ import * as twoCounters from './twoCounters/selectors'
 import * as multipleCounters from './multipleCounters/selectors'
 import traditionalReduxReducer from './traditionalReduxCounters/reducers'
 import * as customCounter from './customReducerCounters/reducers'
+import {enhanceWithBatchedDispatch} from './middlewares/batchedDispatchSerialized'
 
 // Traditional redux reducer
 const combinedReducers = combineReducers({
@@ -56,7 +57,7 @@ const indexedReducers = _.fromPairs(
   uniqueReducers.map((reducerDefinition) => [reducerDefinition.type, reducerDefinition])
 )
 
-const rootReducerReducedSerializable = (state = getInitialState(), action) => {
+const rootReducerReducedSerializable = enhanceWithBatchedDispatch((state = getInitialState(), action) => {
   if (action.type) {
     const reducerDefinition = indexedReducers[action.type]
     if (reducerDefinition) {
@@ -67,15 +68,20 @@ const rootReducerReducedSerializable = (state = getInitialState(), action) => {
     }
   }
   return state
-}
+})
 
 
 const composeReducers = (reducer, ...reducers) =>
   reducers.length > 0 ? (state, action) => reducer(composeReducers(...reducers)(state, action), action) : reducer
 
-export default (state = getInitialState(), action) =>
-  composeReducers(
-    traditionalReduxRootReducer,
-    rootReducerReducedSerializable,
-    rootReducerReduced
-  )(state, action)
+export default (state = getInitialState(), action) => {
+  let newState = rootReducerReduced(state, action)
+  newState = rootReducerReducedSerializable(newState, action)
+  newState = traditionalReduxRootReducer(newState, action)
+  return newState
+}
+// composeReducers(
+//   traditionalReduxRootReducer,
+//   rootReducerReducedSerializable,
+//   rootReducerReduced
+// )(state, action)

@@ -3,9 +3,11 @@
 }
 
 .App__links {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  display: inline-block;
+}
+
+.App__links__link {
+  margin: 0px 10px;
 }
 
 .App__content {
