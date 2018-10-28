@@ -5,20 +5,21 @@ import * as singleCounter from './counterSingle/selectors'
 import * as twoCounters from './twoCounters/selectors'
 import * as multipleCounters from './multipleCounters/selectors'
 import traditionalReduxReducer from './traditionalReduxCounters/reducers'
-import * as customCounter from './customReducerCounters/reducers'
+import * as serializableCounter from './serializableReducerCounters/reducers'
 import {enhanceWithBatchedDispatch} from './middlewares/batchedDispatchSerialized'
 
+const identityReducer = (state = {}) => state
+
 // Traditional redux reducer
-const combinedReducers = combineReducers({
+const traditionalReduxRootReducer = combineReducers({
   traditionalRedux: traditionalReduxReducer,
+  serializableCounter: identityReducer,
+  multi_counters: identityReducer,
+  router: identityReducer,
+  single_counter: identityReducer,
+  two_counters: identityReducer,
 })
 
-const traditionalReduxRootReducer = (state, action) => {
-  return {
-    ...state,
-    ...combinedReducers(state, action),
-  }
-}
 
 //
 //
@@ -28,7 +29,7 @@ const getInitialState = () => {
     singleCounter.setInitialState,
     twoCounters.setInitialState,
     multipleCounters.setInitialState,
-    customCounter.setInitialState,
+    serializableCounter.setInitialState,
   )({})
 }
 
@@ -50,7 +51,7 @@ const rootReducerReduced = (state = getInitialState(), action) => {
 //
 // Approach with dispatching types and paths
 const uniqueReducers = [
-  ...customCounter.reducers,
+  ...serializableCounter.reducers,
 ]
 
 const indexedReducers = _.fromPairs(
@@ -74,14 +75,8 @@ const rootReducerReducedSerializable = enhanceWithBatchedDispatch((state = getIn
 const composeReducers = (reducer, ...reducers) =>
   reducers.length > 0 ? (state, action) => reducer(composeReducers(...reducers)(state, action), action) : reducer
 
-export default (state = getInitialState(), action) => {
-  let newState = rootReducerReduced(state, action)
-  newState = rootReducerReducedSerializable(newState, action)
-  newState = traditionalReduxRootReducer(newState, action)
-  return newState
-}
-// composeReducers(
-//   traditionalReduxRootReducer,
-//   rootReducerReducedSerializable,
-//   rootReducerReduced
-// )(state, action)
+export default (state, action) => composeReducers(
+  traditionalReduxRootReducer,
+  rootReducerReducedSerializable,
+  rootReducerReduced
+)(state, action)

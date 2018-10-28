@@ -6,7 +6,7 @@ import TwoDependentCounters from './counterSingle/TwoDependentCounters'
 import TwoCounters from './twoCounters/TwoCounters'
 import MultipleCounters from './multipleCounters/MultipleCounters'
 import CounterState from './counterState'
-import CustomCounter from './customReducerCounters/Counter'
+import SerializableCounter from './serializableReducerCounters/Counter'
 import TraditionalCounter from './traditionalReduxCounters/Counter'
 
 const Link = ({children, ...props}) => (
@@ -24,7 +24,7 @@ class App extends React.Component {
           <Link to="/two-dependent-counters">Two counters - dependent</Link>
           <Link to="/two-counters">Two counters</Link>
           <Link to="/multiple-counters">Multiple counters</Link>
-          <Link to="/custom-counter">Custom counter</Link>
+          <Link to="/serializable-counter">Serializable counter</Link>
         </div>
         <div className="App__content">
           <Route path="/" exact render={() => <Redirect to={{pathname: '/single-counter'}} />} />
@@ -34,7 +34,7 @@ class App extends React.Component {
           <Route path="/two-dependent-counters" component={TwoDependentCounters} />
           <Route path="/two-counters" component={TwoCounters} />
           <Route path="/multiple-counters" component={MultipleCounters} />
-          <Route path="/custom-counter" component={CustomCounter} />
+          <Route path="/serializable-counter" component={SerializableCounter} />
         </div>
       </div>
     )
