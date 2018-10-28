@@ -1,8 +1,7 @@
-import {setIn, getIn, scopeReducers} from '../utils'
+import {setIn, getIn} from '../utils'
+import {registerReducer} from '../reducer-utils'
 
 export const PATH_SERIALIZABLE_COUNTER = ['serializableCounter']
-
-const cReducer = scopeReducers('serializable-counter')
 
 export const setInitialState = (state) =>
   setIn(state, PATH_SERIALIZABLE_COUNTER, {
@@ -10,15 +9,11 @@ export const setInitialState = (state) =>
   }, true)
 
 
-export const increaseCounter = cReducer({
-  type: 'INCREASE_COUNTER',
+export const increaseCounter = registerReducer({
+  type: 'Change counter by',
   path: [...PATH_SERIALIZABLE_COUNTER, 'value'],
   reducer: (state, action) => state + action.amount,
 })
 
 export const counterDataSelector = (state) =>
   getIn(state, PATH_SERIALIZABLE_COUNTER)
-
-export const reducers = [
-  increaseCounter,
-]

@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import {compose, combineReducers} from 'redux'
 import {forwardReducerTo} from './utils'
 import * as singleCounter from './counterSingle/selectors'
@@ -7,6 +6,7 @@ import * as multipleCounters from './multipleCounters/selectors'
 import traditionalReduxReducer from './traditionalReduxCounters/reducers'
 import * as serializableCounter from './serializableReducerCounters/reducers'
 import {enhanceWithBatchedDispatch} from './middlewares/batchedDispatchSerialized'
+import {registeredReducers} from './reducer-utils'
 
 const identityReducer = (state = {}) => state
 
@@ -50,17 +50,9 @@ const rootReducerReduced = (state = getInitialState(), action) => {
 //
 //
 // Approach with dispatching types and paths
-const uniqueReducers = [
-  ...serializableCounter.reducers,
-]
-
-const indexedReducers = _.fromPairs(
-  uniqueReducers.map((reducerDefinition) => [reducerDefinition.type, reducerDefinition])
-)
-
 const rootReducerReducedSerializable = enhanceWithBatchedDispatch((state = getInitialState(), action) => {
   if (action.type) {
-    const reducerDefinition = indexedReducers[action.type]
+    const reducerDefinition = registeredReducers[action.type]
     if (reducerDefinition) {
       const reducer = reducerDefinition.path
         ? forwardReducerTo(reducerDefinition.reducer, reducerDefinition.path)

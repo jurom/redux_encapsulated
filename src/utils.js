@@ -113,9 +113,3 @@ function cloneObject(obj) {
 
 export const generateId = ():string =>
   `${Date.now()}-${Math.floor(Math.random() * 1000)}`
-
-
-export const scopeReducers = (scope) => (reducerDefinition) => ({
-  ...reducerDefinition,
-  type: `${scope}/${reducerDefinition.type}`,
-})
