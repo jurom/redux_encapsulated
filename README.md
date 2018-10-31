@@ -16,7 +16,7 @@ The project contains simple counters programmed in different fashions.
 
 - stateful-react - regular stateful react component
 - standard-redux - standard redux boilerplate for a counter
-- reduced-redux - reduced redux implementation for a counter, with batched dispatches and redux component reusability
+- [reduced-redux](src/reduced-redux) - reduced redux implementation for a counter, with batched dispatches and redux component reusability
 - reduced-redux-serialized - reduced redux actions are not serializable, this is an experiment how to retain serializability, and logic in one place
 
 ## Installing
