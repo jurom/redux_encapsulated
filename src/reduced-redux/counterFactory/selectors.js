@@ -1,6 +1,7 @@
 import {getIn, setIn} from '../../utils'
 import {COUNTER_MODES} from '../../constants'
 
+// Abstract the selectors to a factory, that creates selectors related to a given path
 export default ({path}) => {
 
   const initialState = {

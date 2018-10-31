@@ -21,6 +21,8 @@ const initializeCounterState = ({counterId, setInitialState}) => ({
   reducer: (state) => setInitialState(state),
 })
 
+// Memoization is important here so we don't get a new set of
+// actions with each call.
 export const getCounterActions = lodash.memoize((counterId) =>
   createCounterActions({selectors: getCounterSelectors(counterId)})
 )

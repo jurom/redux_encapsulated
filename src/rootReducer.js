@@ -13,6 +13,8 @@ const identityReducer = (state = {}) => state
 // standard redux reducer
 const standardReduxRootReducer = combineReducers({
   standardRedux: standardReduxReducer,
+  // We need to register some dummy reducers to standard redux on places which are handled by
+  // reduced-redux, so that it does not just remove them from the state.
   serializableCounter: identityReducer,
   multi_counters: identityReducer,
   router: identityReducer,
@@ -23,7 +25,7 @@ const standardReduxRootReducer = combineReducers({
 
 //
 //
-// Initial state creation shared for the new approaches
+// Initial state creation shared for the new approaches (reduced-redux && reduced-redux-serialized)
 const getInitialState = () => {
   return compose(
     singleCounter.setInitialState,

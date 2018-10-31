@@ -19,6 +19,7 @@ export const configureStore = () => {
     initialState,
     compose(
       applyMiddleware(
+        // This middleware needs to be first, because redux middlewares don't understand arrays.
         batchedDispatch,
         batchedDispatchSerialized,
         routerMiddleware(browserHistory),

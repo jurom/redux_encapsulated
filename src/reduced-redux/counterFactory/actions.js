@@ -1,5 +1,8 @@
 import {COUNTER_MODES} from '../../constants'
 
+// Actions require selectors. Instead of importing them statically, we'll abstract them into
+// a factory, that gets the selectors and returns a set of actions.
+// This allows to use the selectors created dynamically by a factory.
 export default ({selectors}) => {
 
   const {

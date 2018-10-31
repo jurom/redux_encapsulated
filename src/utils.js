@@ -1,6 +1,10 @@
 import assert from 'assert'
 import lodash from 'lodash'
 
+/*
+ * Checks whether obj[key] exists.
+ * This is a helper function used by getIn
+ */
 const _hasOwnProp = (obj, key) => {
   assert(typeof key === 'string' || typeof key === 'number', 'bad key type')
   assert(key !== '', 'empty key') // empty key is a terrible idea in general
@@ -13,12 +17,12 @@ const _hasOwnProp = (obj, key) => {
   // Func fact: ({hasOwnProperty:()=>true}).hasOwnProperty("blah") -> true
   return Object.prototype.hasOwnProperty.call(obj, `${key}`)
 }
+
 /*
- * Apply function composition.
- * compose(f,g,h)(x) is equivalent to f(g(h(x)))
+ * Forward reducer transform to a particular state path.
+ * If the last path element does not exist, reducer will get undefined
+ * so that you can use reduce(state=initialState(), payload) => ...
  */
-
-
 export const forwardReducerTo = (reducer, path) => (
   (state, payload) => {
     const dummy = {}
@@ -28,6 +32,12 @@ export const forwardReducerTo = (reducer, path) => (
   }
 )
 
+/*
+ * Lookups value on a specific path in a given state. If the lookup fails, the error is thrown
+ * unless default value is specified. Last argument is a map of default values:
+ * - last is used when access fails at last step
+ * - any is used when access fails at any step
+ */
 export function getIn(state: any, path: (string | number)[], {last, any} = {}) {
   checkValidPath(path)
   let value = state
@@ -47,17 +57,23 @@ export function getIn(state: any, path: (string | number)[], {last, any} = {}) {
   return value
 }
 
+/*
+ * Sets a specific `path` in a `state` to a given value, immutable style.
+ *
+ * path: array of string keys
+ * returns: new state
+ */
 export function setIn(state: any, path: (string|number)[], val:any, force?:boolean = false) {
   checkValidPath(path, 0)
   if (path.length === 0) {
     return val
   }
-  return recursiveUpdate('setIn', state, state, path, 0, () => val, force)
+  return _recursiveUpdate('setIn', state, state, path, 0, () => val, force)
 }
 
-function recursiveUpdate(taskName, state, resolvedState, path, index, fn, force = false) {
+function _recursiveUpdate(taskName, state, resolvedState, path, index, fn, force = false) {
   const key = path[index]
-  let shallowCopy = cloneObject(resolvedState)
+  let shallowCopy = shallowCloneObject(resolvedState)
   if (!shallowCopy && force) {
     shallowCopy = {}
   }
@@ -74,7 +90,7 @@ function recursiveUpdate(taskName, state, resolvedState, path, index, fn, force 
         throwError(taskName, state, path.slice(0, index + 1), shallowCopy)
       }
     }
-    shallowCopy[key] = recursiveUpdate(taskName, state,
+    shallowCopy[key] = _recursiveUpdate(taskName, state,
       shallowCopy[key], path, index + 1, fn, force)
   }
   return shallowCopy
@@ -103,7 +119,7 @@ function throwError(taskName, state, pathSegment, value) {
   ${JSON.stringify(value)}`)
 }
 
-function cloneObject(obj) {
+function shallowCloneObject(obj) {
   if (obj === null || typeof obj !== 'object') {
     return obj
   }

@@ -7,6 +7,8 @@ import {getCounterActions, addCounter} from './actions'
 
 import counterCreator from '../counterFactory/component'
 
+// Memoization is important here so that we don't return a new set
+// of counters with each call.
 const getCounterComponent = lodash.memoize((counterId) =>
   counterCreator({actions: getCounterActions(counterId), selectors: getCounterSelectors(counterId)})
 )

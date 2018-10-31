@@ -11,6 +11,8 @@ export const PATH_SINGLE_COUNTER = ['single_counter']
 export const counterCountSelector = (state) =>
   getIn(state, [...PATH_SINGLE_COUNTER, 'count'])
 
+// As the root reducer doesn't know anything about the reducers or the paths,
+// we need to initialize the state manually.
 export const setInitialState = (state) =>
   setIn(state, PATH_SINGLE_COUNTER, initialState, true)
 

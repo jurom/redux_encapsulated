@@ -5,6 +5,8 @@ import {withHandlers} from 'recompose'
 import {counterCountSelector} from './selectors'
 import {changeCounter, switchMode, doubleChange} from './actions'
 
+// Single counter view implemented in reduced-redux fashion
+
 const Counter = ({count, doubleIncrease, increaseCounter, decreaseCounter, switchMode}) => (
   <div>
     <div>The current count is: {count}</div>

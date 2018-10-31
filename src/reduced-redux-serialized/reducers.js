@@ -8,7 +8,8 @@ export const setInitialState = (state) =>
     value: 0,
   }, true)
 
-
+// The root reducer needs to be aware of the reducers, so we need to register it
+// the registering can also ensure type uniqueness
 export const increaseCounter = registerReducer({
   type: 'Change counter by',
   path: [...PATH_SERIALIZABLE_COUNTER, 'value'],

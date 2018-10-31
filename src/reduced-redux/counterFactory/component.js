@@ -3,6 +3,9 @@ import {connect} from 'react-redux'
 import {compose} from 'redux'
 import {withHandlers} from 'recompose'
 
+// Component requires actions and selectors. Instead of importing them statically, we'll
+// create a factory, that gets them and is responsible for returning a component.
+// This allows us to use the actions and selectors created dynamically by their factories.
 export default ({actions, selectors}) => {
 
   const {changeCounter, switchMode} = actions

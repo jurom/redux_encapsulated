@@ -1,6 +1,8 @@
 import {COUNTER_MODES} from '../../constants'
 import {PATH_SINGLE_COUNTER, counterModeSelector} from './selectors'
 
+// Reduced-redux actions. Each containing the reducer and path in state where this reducer should be applied.
+
 const changeCounterBy = (count) => ({
   type: 'Change counter',
   payload: {count},
@@ -17,6 +19,7 @@ const _switchMode = (mode) => ({
 
 export const doubleChange = () =>
   (dispatch, getState) => {
+    // Dispatch an array of actions, which change the state in a single dispatch.
     dispatch([changeCounterBy(1), changeCounterBy(1)])
   }
 
