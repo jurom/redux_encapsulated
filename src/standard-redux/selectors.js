@@ -1,5 +1,5 @@
 export const counterCountSelector = (state) =>
-  state.traditionalRedux.count
+  state.standardRedux.count
 
 export const counterModeSelector = (state) =>
-  state.traditionalRedux.mode
+  state.standardRedux.mode

@@ -5,8 +5,8 @@ import {createBrowserHistory} from 'history'
 import {createLogger} from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
 import DevTools from './DevTools'
-import batchedDispatch from './middlewares/batchedDispatch'
-import {batchedDispatchSerialized} from './middlewares/batchedDispatchSerialized'
+import batchedDispatch from './reduced-redux/middlewares/batchedDispatch'
+import {batchedDispatchSerialized} from './reduced-redux-serialized/middlewares/batchedDispatchSerialized'
 
 export const browserHistory = createBrowserHistory()
 

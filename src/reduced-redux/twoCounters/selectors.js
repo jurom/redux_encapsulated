@@ -1,6 +1,6 @@
 import {compose} from 'redux'
-import {setIn} from '../utils'
-import createCounterSelectors from './counterCreator/selectors'
+import {setIn} from '../../utils'
+import createCounterSelectors from '../counterFactory/selectors'
 
 export const PATH_TWO_COUNTERS_SCREEN = ['two_counters']
 /// Some other things related to this screen, unrelated to the counters could be stored here...

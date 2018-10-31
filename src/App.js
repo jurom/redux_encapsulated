@@ -1,13 +1,13 @@
 import './App.css'
 import React from 'react'
 import {NavLink, Route, Redirect} from 'react-router-dom'
-import SingleCounter from './counterSingle/Counter'
-import TwoDependentCounters from './counterSingle/TwoDependentCounters'
-import TwoCounters from './twoCounters/TwoCounters'
-import MultipleCounters from './multipleCounters/MultipleCounters'
-import CounterState from './counterState'
-import SerializableCounter from './serializableReducerCounters/Counter'
-import TraditionalCounter from './traditionalReduxCounters/Counter'
+import SingleCounter from './reduced-redux/singleCounter/Counter'
+import TwoDependentCounters from './reduced-redux/singleCounter/TwoDependentCounters'
+import TwoCounters from './reduced-redux/twoCounters/TwoCounters'
+import MultipleCounters from './reduced-redux/multipleCounters/MultipleCounters'
+import CounterState from './stateful-react'
+import SerializableCounter from './reduced-redux-serialized/Counter'
+import StandardCounter from './standard-redux/Counter'
 
 const Link = ({children, ...props}) => (
   <NavLink {...props} className="App__links__link">{children}</NavLink>
@@ -19,7 +19,7 @@ class App extends React.Component {
       <div className="App">
         <div className="App__links">
           <Link to="/stateful">Stateful counter</Link>
-          <Link to="/traditional">Traditional redux counter</Link>
+          <Link to="/standard">standard redux counter</Link>
           <Link to="/single-counter">Single counter</Link>
           <Link to="/two-dependent-counters">Two counters - dependent</Link>
           <Link to="/two-counters">Two counters</Link>
@@ -29,7 +29,7 @@ class App extends React.Component {
         <div className="App__content">
           <Route path="/" exact render={() => <Redirect to={{pathname: '/single-counter'}} />} />
           <Route path="/stateful" component={CounterState} />
-          <Route path="/traditional" component={TraditionalCounter} />
+          <Route path="/standard" component={StandardCounter} />
           <Route path="/single-counter" component={SingleCounter} />
           <Route path="/two-dependent-counters" component={TwoDependentCounters} />
           <Route path="/two-counters" component={TwoCounters} />

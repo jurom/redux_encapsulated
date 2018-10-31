@@ -1,4 +1,4 @@
-import createCounterActions from './counterCreator/actions'
+import createCounterActions from '../counterFactory/actions'
 import {counterSelectors1, counterSelectors2} from './selectors'
 
 export const counterActions1 = createCounterActions({selectors: counterSelectors1})

@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import {forwardReducerTo} from '../utils'
+import {forwardReducerTo} from '../../utils'
 
 const isReducedReduxAction = (action) => action.reducer != null && action.path != null
 

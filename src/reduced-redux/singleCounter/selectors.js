@@ -1,5 +1,5 @@
-import {getIn, setIn} from '../utils'
-import {COUNTER_MODES} from '../constants'
+import {getIn, setIn} from '../../utils'
+import {COUNTER_MODES} from '../../constants'
 
 const initialState = {
   count: 0,

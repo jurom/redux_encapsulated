@@ -1,18 +1,18 @@
 import {compose, combineReducers} from 'redux'
 import {forwardReducerTo} from './utils'
-import * as singleCounter from './counterSingle/selectors'
-import * as twoCounters from './twoCounters/selectors'
-import * as multipleCounters from './multipleCounters/selectors'
-import traditionalReduxReducer from './traditionalReduxCounters/reducers'
-import * as serializableCounter from './serializableReducerCounters/reducers'
-import {enhanceWithBatchedDispatch} from './middlewares/batchedDispatchSerialized'
+import * as singleCounter from './reduced-redux/singleCounter/selectors'
+import * as twoCounters from './reduced-redux/twoCounters/selectors'
+import * as multipleCounters from './reduced-redux/multipleCounters/selectors'
+import standardReduxReducer from './standard-redux/reducers'
+import * as serializableCounter from './reduced-redux-serialized/reducers'
+import {enhanceWithBatchedDispatch} from './reduced-redux-serialized/middlewares/batchedDispatchSerialized'
 import {registeredReducers} from './reducer-utils'
 
 const identityReducer = (state = {}) => state
 
-// Traditional redux reducer
-const traditionalReduxRootReducer = combineReducers({
-  traditionalRedux: traditionalReduxReducer,
+// standard redux reducer
+const standardReduxRootReducer = combineReducers({
+  standardRedux: standardReduxReducer,
   serializableCounter: identityReducer,
   multi_counters: identityReducer,
   router: identityReducer,
@@ -68,7 +68,7 @@ const composeReducers = (reducer, ...reducers) =>
   reducers.length > 0 ? (state, action) => reducer(composeReducers(...reducers)(state, action), action) : reducer
 
 export default (state, action) => composeReducers(
-  traditionalReduxRootReducer,
+  standardReduxRootReducer,
   rootReducerReducedSerializable,
   rootReducerReduced
 )(state, action)

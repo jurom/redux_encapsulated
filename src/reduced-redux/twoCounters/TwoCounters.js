@@ -1,7 +1,7 @@
 import React from 'react'
 import {counterActions1, counterActions2} from './actions'
 import {counterSelectors1, counterSelectors2} from './selectors'
-import counterCreator from './counterCreator/component'
+import counterCreator from '../counterFactory/component'
 
 const FirstCounter = counterCreator({actions: counterActions1, selectors: counterSelectors1})
 const SecondCounter = counterCreator({actions: counterActions2, selectors: counterSelectors2})

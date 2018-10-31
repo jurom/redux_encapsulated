@@ -5,7 +5,7 @@ import lodash from 'lodash'
 import {counterIdsSelector, getCounterSelectors} from './selectors'
 import {getCounterActions, addCounter} from './actions'
 
-import counterCreator from '../twoCounters/counterCreator/component'
+import counterCreator from '../counterFactory/component'
 
 const getCounterComponent = lodash.memoize((counterId) =>
   counterCreator({actions: getCounterActions(counterId), selectors: getCounterSelectors(counterId)})
