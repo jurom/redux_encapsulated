@@ -26,3 +26,11 @@ jobs:
     steps:
       - name: Release dummy
         run: echo "release to stg ..."
+  releasePROD:
+    name: Release PROD
+    needs: releaseSTG
+    environment: production
+    runs-on: ubuntu-latest
+    steps:
+      - name: Release dummy
+        run: echo "release to prod ..."
