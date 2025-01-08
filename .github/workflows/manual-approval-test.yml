@@ -20,6 +20,7 @@ jobs:
         run: echo "release to dev ..."
   releaseSTG:
     name: Release STG
+    needs: releaseDEV
     environment: stage
     runs-on: ubuntu-latest
     steps:
