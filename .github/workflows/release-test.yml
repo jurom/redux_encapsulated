@@ -16,4 +16,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Release dummy
-        run: echo "release to dev ..."
+        run: echo "${{ github.sha }} commit"
