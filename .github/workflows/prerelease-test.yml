@@ -1,0 +1,19 @@
+---
+name: Release test-prereleased
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
+  cancel-in-progress: true
+
+on:
+  workflow_dispatch:
+  release:
+    types: [prereleased]
+
+jobs:
+  releaseDEV:
+    name: Release DEV
+    runs-on: ubuntu-latest
+    steps:
+      - name: Release dummy
+        run: echo "release to dev ..."
